@@ -1,0 +1,317 @@
+:root {
+  /* Light Mode Variables */
+  --bgColor: var(--color2);
+  --glovoOrange: #ffc244;
+  --dark: #000;
+  --darkShadow: rgba(0, 0, 0, 0.1);
+  --milkyWhite: #fff;
+  --textColor: #747474;
+  --smoothGrey: #eee;
+
+  --color1: #cacaca;
+  --color2: #f0f0f0;
+  --sha1: #bebebe;
+
+  --gradient-angle: 145deg;
+  --gradient-color-1: var(--color1);
+  --gradient-color-2: var(--color2);
+
+  --text: white;
+}
+
+[data-theme="dark"] {
+  /* Dark Mode Variables */
+
+  --glovoOrange: #fda902;
+  --dark: #fff;
+  --darkShadow: rgba(255, 255, 255, 0.1);
+  --milkyWhite: rgba(72, 72, 72, 0.097);
+  --textColor: #b3b3b3;
+  --smoothGrey: #333;
+
+  --color1: #1f1f1f;
+  --color2: #2a2a2a;
+  --sha1: #1a1a1a;
+
+  --gradient-angle: 145deg;
+  --gradient-color-1: var(--color1);
+  --gradient-color-2: var(--color2);
+  --bgColor: var(--color2);
+  --text: rgb(0, 48, 28);
+}
+
+@import url("https://fonts.googleapis.com/css?family=Bai+Jamjuree&display=swap");
+
+/* General Reset */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Bai Jamjuree", sans-serif;
+  background-color: var(--bgColor);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  flex-direction: column;
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 145deg;
+  inherits: false;
+}
+
+@property --gradient-color-1 {
+  syntax: "<color>";
+  initial-value: var(--color1);
+  inherits: false;
+}
+
+@property --gradient-color-2 {
+  syntax: "<color>";
+  initial-value: var(--color2);
+  inherits: false;
+}
+
+.success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 50px;
+  background: linear-gradient(
+    var(--gradient-angle),
+    var(--gradient-color-1),
+    var(--gradient-color-2)
+  );
+
+  box-shadow: 20px 20px 60px var(--sha1), -20px -20px 60px var(--milkyWhite);
+  min-width: 300px;
+  height: 400px;
+
+  transition: --gradient-angle 0.3s ease-in-out,
+    --gradient-color-1 0.3s ease-in-out, --gradient-color-2 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+
+  cursor: pointer;
+}
+
+.success-container:hover {
+  --gradient-angle: 145deg;
+  --gradient-color-1: var(--color2);
+  --gradient-color-2: var(--color1);
+  box-shadow: none !important;
+}
+
+/* Animation SVG */
+.animation {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.checkmark {
+  width: 100px;
+  height: 100px;
+}
+
+.checkmark-circle {
+  stroke: var(--glovoOrange);
+  stroke-width: 2;
+  animation: circle-fill 0.7s ease-in-out forwards;
+}
+
+.checkmark-check {
+  stroke: var(--glovoOrange);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: check-draw 1s 1s ease forwards;
+}
+
+/* Animations */
+@keyframes circle-fill {
+  0% {
+    stroke-dasharray: 0, 158;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 158, 158;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes check-draw {
+  from {
+    stroke-dashoffset: 40;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Success Label */
+.success-label {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--glovoOrange);
+  margin-bottom: 20px;
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+/* Action Button */
+.action-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: var(--text);
+  background-color: var(--glovoOrange);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: bold;
+  margin-top: 100px;
+}
+
+.action-button:hover {
+  background-color: var(--textColor);
+}
+
+.action-button:active {
+  background-color: var(--textColor);
+}
+
+/* Custom Alert Styling */
+.custom-alert {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: -45px;
+  width: 100%;
+  height: 140%;
+  opacity: 0.5;
+  
+}
+
+.custom-alert-content {
+  border: var(--glovoOrange) 1px solid;
+  position: relative;
+  background-color: var(--bgColor);
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+ 
+  border-left: var(--glovoOrange) 8px solid;
+  opacity: 1;
+}
+
+.custom-alert-content p {
+  font-size: 14px;
+  color: #504242;
+  margin: 0;
+  text-align: left;
+}
+
+.al {
+  display: flex;
+  gap: 10px;
+}
+
+.al i {
+  color: var(--glovoOrange);
+  font-size: 13.3px;
+  margin-top: 1.5px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 24px;
+  color: var(--text);
+  cursor: pointer;
+  padding: 1px 10.3px;
+  border-radius: 50%;
+  padding-bottom: 2.4px;
+  background-color: var(--glovoOrange);
+  transition: all 0.3s ease-in-out;
+}
+
+.close-btn:hover {
+  color: var(--glovoOrange);
+  background-color: rgba(165, 160, 147, 0.684);
+}
+
+/* Fade-in animation */
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade-out animation */
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.getquotetext {
+  margin-top: 30px;
+}
+
+.brx {
+  margin-right: 100px !important;
+}
+
+#alertMessage {
+  padding: 0 10px !important;
+  margin-top: 1px;
+  padding-right: 14px !important;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 500;
+}
+
+.fa-exclamation-triangle {
+  font-size: 16px !important;
+  margin-right: -10px;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+.success-container{
+  margin-top: 140px!important;
+}
+
+}
